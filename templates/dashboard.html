@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+	<title>Hello from Flask</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="static/dashboard.css">
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Groups</h1>
+				{% for group in groups %}
+				<div class="media dash-media">
+					<a class="media-left" href="/group/{{ group['id'] }}?access_token={{ access_token }}">
+						{% if group['image_url'] %}
+						<img src="{{ group['image_url'] }}.avatar">
+						{% else %}
+						<img src="https://i.groupme.com/300x300.png.e8ec5793a332457096bc9707ffc9ac37.avatar">
+						{% endif %}
+					</a>
+					<a class="media-body" href="/group/{{ group['id'] }}?access_token={{ access_token }}">
+						<h4 class="media-heading">{{ group['name'] }}</h4>
+						<strong>Members:</strong>{% for member in group['members'] %}
+							{{ member['nickname'] }},
+						{% endfor %}
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div style="display:none" class="loader">
+		<div class="spinner"></div>
+	</div>
+	<script type="text/javascript">
+		$('.media-left, .media-body').click( function() {
+			$('.loader').show();
+		});
+	</script>
+</body>

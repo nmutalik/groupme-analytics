@@ -1,0 +1,13 @@
+
+.group-avatar {
+	height: 40px;
+	width: 40px;
+}
+
+.data-cell {
+	text-align: center;
+}
+
+.container{
+	overflow: scroll;
+}
