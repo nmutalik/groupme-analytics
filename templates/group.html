@@ -18,17 +18,17 @@
 				<table class="table">
 					<tr>
 						<td></td>
-						{% for member in members.keys() %}
+						{% for member in members %}
 						<td class="data-cell">
-							<img class="group-avatar" src="{{ members[member][0] if members[member][0] else 'https://i.groupme.com/300x300.png.e8ec5793a332457096bc9707ffc9ac37.avatar' }}" title="{{ members[member][1] }}">
+							<img class="group-avatar" src="{{ member[0] if member[0] else 'https://i.groupme.com/300x300.png.e8ec5793a332457096bc9707ffc9ac37.avatar' }}" title="{{ member[1] }}">
 						</td>	
 						{% endfor %}
 					</tr>
-					{% for member1 in members.keys() %}
+					{% for index, row in array %}
 					<tr>
-						<td class="data-cell"><img class="group-avatar" src="{{ members[member1][0] if members[member1][0] else 'https://i.groupme.com/300x300.png.e8ec5793a332457096bc9707ffc9ac37.avatar' }}" title="{{ members[member1][1] }}"></td>
-						{% for member2 in members.keys() %}
-							<td class="data-cell">{{ likes[member2][member1] }}</td>
+						<td class="data-cell"><img class="group-avatar" src="{{ members[index][0] if members[index][0] else 'https://i.groupme.com/300x300.png.e8ec5793a332457096bc9707ffc9ac37.avatar' }}" title="{{ members[index][1] }}"></td>
+						{% for value in row %}
+							<td class="data-cell">{{ value }}</td>
 						{% endfor %}
 					</tr>
 					{% endfor %}
