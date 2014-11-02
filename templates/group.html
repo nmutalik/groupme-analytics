@@ -13,8 +13,18 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>{{ group['name'] }}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
 				{% block content1 %} {{chart1|safe}} {% endblock %}
+			</div>
+			<div class="col-md-6">
 				{% block content2 %} {{chart2|safe}} {% endblock %}
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-md-12 overflow">
 				<table class="table">
 					<tr>
 						<td></td>
@@ -33,6 +43,10 @@
 					</tr>
 					{% endfor %}
 				</table>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-md-12">
 				<button class="btn btn-primary" id="delete">Delete</button>
 			</div>
 		</div>

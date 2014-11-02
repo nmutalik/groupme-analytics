@@ -1,10 +1,7 @@
 import flask, requests, json, pygal
 from flask import Flask, request
-from pygal.style import LightSolarizedStyle
+from pygal.style import CleanStyle
 from collections import defaultdict
-import logging
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -34,7 +31,6 @@ def group(group_id):
 		 			members[m['user_id']].append("https://i.groupme.com/sms_avatar.avatar")
 		 		members[m['user_id']].append(m['nickname'])
 			members['system'] = ["",'system']
-			logging.debug(members)
 			likes = defaultdict(lambda: defaultdict(int))
 			posts = defaultdict(int)
 			messages = requests.get('https://api.groupme.com/v3/groups/{0}/messages?limit=100&access_token={1}'.format(group_id, access_token))
@@ -92,7 +88,7 @@ def makeArrayFromDictionary(members, likes):
 def renderChartFromArray(array, members, title):
 	names_x = sorted(members.keys())
 	names_y = names_x[:]
-	stackedbar_chart = pygal.StackedBar(height=400+20*len(members),style=LightSolarizedStyle, x_label_rotation=30)
+	stackedbar_chart = pygal.StackedBar(height=max(400, 30*len(members)),style=CleanStyle, x_label_rotation=30)
 	stackedbar_chart.title = title
 	stackedbar_chart.x_labels = map(lambda x: members[x][1].split()[0], names_x)
 	for i, v in enumerate(names_y):
