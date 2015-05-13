@@ -15,14 +15,41 @@
 				<h1>{{ group['name'] }}</h1>
 			</div>
 		</div>
+		{% for chart in charts %}
 		<div class="row">
-			<div class="col-md-6">
-				{% block content1 %} {{chart1|safe}} {% endblock %}
-			</div>
-			<div class="col-md-6">
-				{% block content2 %} {{chart2|safe}} {% endblock %}
+			<div class="col-md-12">
+				<iframe id="igraph" style='border:none' src="{{ chart }}" height=480 width="100%"></iframe>
 			</div>
 		</div>
+		<hr>
+		{% endfor %}
+		{% for chart in range(((smallcharts|length)/2)|round(1, 'floor')|int) %}
+		<div class="row">
+			<div class="col-md-6">
+				<iframe id="igraph" style='border:none' src="{{ smallcharts[2 * chart] }}" height=480 width="100%"></iframe>
+			</div>
+			<div class="col-md-6">
+				<iframe id="igraph" style='border:none' src="{{ smallcharts[2 * chart + 1] }}/800/460" height=480 width="100%"></iframe>
+			</div>
+		</div>
+		<hr>
+		{% endfor %}
+		{% if (smallcharts|length) % 2 == 1 %}
+			<div class="row">
+				<div class="col-md-6">
+					<iframe id="igraph" style='border:none' src="{{ smallcharts[-1] }}/800/600" height=640 width="100%"></iframe>
+				</div>
+			</div>
+			<hr>
+		{% endif %}
+		{% for bigchart in bigcharts %}
+			<div class="row">
+				<div class="col-md-12">
+					<iframe id="igraph" style='border:none' src="{{ bigchart }}/800/600" height="640" width="100%"></iframe>
+				</div>
+			</div>
+			<hr>
+		{% endfor %}
 		<!-- <div class="row">
 			<div class="col-md-12 overflow">
 				<table class="table">
@@ -45,21 +72,10 @@
 				</table>
 			</div>
 		</div> -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12">
 				<button class="btn btn-primary" id="delete">Delete</button>
 			</div>
-		</div>
+		</div> -->
 	</div>
-	<div style="display:none" class="loader">
-		<div class="spinner"></div>
-	</div>
-	<script type="text/javascript">
-		$('.media-left, .media-body').click( function() {
-			$('.loader').show();
-		});
-		$('#delete').click( function() {
-			$.get('/delete/{{ group["id"] }}')
-		})
-	</script>
 </body>
